@@ -1,17 +1,16 @@
 import React from 'react';
-import * as ReactDOM from 'react-dom';
-import * as css from './DataPickerBody.scss';
+import ReactDOM from 'react-dom';
+import isEqual from 'lodash.isequal';
+import css from './DataPickerBody.scss';
+import { Lens, DataSourceState, IEditable, DataSourceListProps, isMobile, IHasRawProps, cx } from '@epam/uui';
+import { FlexCell } from '@epam/uui-components';
+import { i18n } from "../../i18n";
 import * as types from '../types';
-import cx from 'classnames';
 import { SearchInput } from '../inputs';
 import { FlexRow, VirtualList } from '../layout';
-import { Lens, DataSourceState, IEditable, DataSourceListProps } from '@epam/uui';
-import { FlexCell } from '@epam/uui-components';
 import { Text } from '../typography';
-import isEqual from 'lodash.isequal';
-import { i18n } from "../../i18n";
 
-export type DataPickerBodyProps<TItem, TId> = DataSourceListProps & IEditable<DataSourceState> & {
+export type DataPickerBodyProps<TItem, TId> = DataSourceListProps & IEditable<DataSourceState> & IHasRawProps<HTMLDivElement> & {
     showSearch?: boolean | 'auto'
     showSelectedRows?: boolean;
     maxHeight?: number;
@@ -30,9 +29,9 @@ export class DataPickerBody<TItem, TId> extends React.Component<DataPickerBodyPr
     needFocusSearch: boolean = this.showSearch();
 
     componentDidUpdate(prevProps: DataPickerBodyProps<TItem, TId>) {
-        if (this.needFocusSearch) {
+        if (this.needFocusSearch && !isMobile()) {
             let body = ReactDOM.findDOMNode(this) as HTMLElement;
-            body && body.getElementsByTagName('input')[0].focus({preventScroll: true});
+            body && body.getElementsByTagName('input')[0].focus({ preventScroll: true });
             this.needFocusSearch = false;
         }
         if (prevProps.rows.length !== this.props.rows.length || !isEqual(prevProps.value.checked, this.props.value.checked)) {
@@ -54,39 +53,43 @@ export class DataPickerBody<TItem, TId> extends React.Component<DataPickerBodyPr
             return this.props.renderNotFound();
         }
 
-        return <FlexCell grow={ 1 } textAlign='center'>
-           <Text>{ i18n.dataPickerBody.noResultsMessage }</Text>
+        return <FlexCell grow={ 1 } textAlign="center">
+            <Text>{ i18n.dataPickerBody.noResultsMessage }</Text>
         </FlexCell>;
     }
 
     render() {
         const value = this.props.value;
+        const searchSize = isMobile() ? "48" : (this.props.searchSize || "36");
+        const searchClass = cx(css.searchWrapper, css[`search-size-${ searchSize }`]);
 
         return <>
-            { this.showSearch() && <div key='search' className={ cx(css.searchWrapper, css[`search-size-${this.props.searchSize}`]) }>
-                <FlexCell grow={ 1 }>
-                    <SearchInput
-                        cx={ css.search }
-                        placeholder={ i18n.dataPickerBody.searchPlaceholder }
-                        { ...this.searchLens.toProps() }
-                        onKeyDown={ this.props.onKeyDown }
-                        size={ this.props.searchSize || '36' }
-                    />
-                </FlexCell>
-            </div> }
+            { this.showSearch() && (
+                <div key="search" className={ searchClass }>
+                    <FlexCell grow={ 1 }>
+                        <SearchInput
+                            cx={ css.search }
+                            placeholder={ i18n.dataPickerBody.searchPlaceholder }
+                            { ...this.searchLens.toProps() }
+                            onKeyDown={ this.props.onKeyDown }
+                            size={ searchSize }
+                        />
+                    </FlexCell>
+                </div>
+            ) }
             <FlexRow
-                key='body'
+                key="body"
                 cx={ css.body }
-                rawProps={ {style: { maxHeight: this.props.maxHeight }} }
-                borderBottom={ this.props.showSelectedRows && value.checked ? 'night400' : false }
-                background='white'
+                rawProps={ { style: { maxHeight: this.props.maxHeight } } }
+                background="white"
             >
                 { this.props.rowsCount > 0
                     ? <VirtualList
                         { ...this.lens.toProps() }
-                        shadow='white'
+                        shadow="white"
                         rows={ this.props.rows }
                         rowsCount={ this.props.rowsCount }
+                        rawProps={ this.props.rawProps }
                         focusedIndex={ value && value.focusedIndex || 0 }
                     />
                     : this.renderNoFound()

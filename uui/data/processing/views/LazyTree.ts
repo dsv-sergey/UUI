@@ -1,13 +1,17 @@
-import { DataSourceState, LazyDataSourceApi } from '../types';
+import { DataSourceState, LazyDataSourceApi, LazyDataSourceApiRequestContext, LazyDataSourceApiRequestRange } from '../types';
+
+export type LazyTreeFetchStrategy = 'sequential' | 'parallel'; // TBD: batch mode
 
 export interface LazyTreeParams<TItem, TId, TFilter> {
     api: LazyDataSourceApi<TItem, TId, TFilter>;
     getId?(item: TItem): TId;
     filter?: TFilter;
-    isFolded?: (item: TItem) => boolean;
     getChildCount?(item: TItem): number;
+    isFolded?: (item: TItem) => boolean;
+    fetchStrategy?: LazyTreeFetchStrategy;
     loadAll?: boolean;
     loadAllChildren?(item: LazyTreeItem<TItem, TId>): boolean;
+    flattenSearchResults?: boolean;
 }
 
 export interface LazyTreeList<TItem, TId> {
@@ -27,6 +31,7 @@ export async function loadLazyTree<TItem, TId, TFilter>(
     params: LazyTreeParams<TItem, TId, TFilter>,
     value: Readonly<DataSourceState>,
 ) {
+    params = { fetchStrategy: 'sequential', ...params };
     const requiredRowsCount = value.topIndex + value.visibleCount;
     return loadNodeRec(node, null, params, value, requiredRowsCount, params.loadAll);
 }
@@ -39,35 +44,56 @@ async function loadNodeRec<TItem, TId, TFilter>(
     requiredRowsCount: number,
     parentLoadAll: boolean,
 ) {
-    if (parentLoadAll) {
-        requiredRowsCount = 100500;
-    }
-
     let node: LazyTreeList<TItem, TId> = inputNode
         ? { ...inputNode, items: [ ...inputNode.items ] }
         : { items: [] };
 
+    const flatten = value.search && params.flattenSearchResults;
+
+    // The function should return the same node, if it haven't changed.
+    // I found no good way to do this in pure style, so we just track if there was any change, and return the same node if there's none
     let isChanged = false;
+
+    // Selection cascading forces to load all nodes under particular node
+    let loadAll = false;
+    if (parentLoadAll) {
+        loadAll = true;
+        requiredRowsCount = Number.MAX_SAFE_INTEGER;
+    }
 
     let missingCount = requiredRowsCount - node.items.length;
 
     let availableCount = node.count != null ? (node.count - node.items.length) : missingCount;
 
-    const range = { from: node.items.length, count: missingCount };
+    const range: LazyDataSourceApiRequestRange = { from: node.items.length };
+
+    if (!loadAll) {
+        range.count = missingCount;
+    }
 
     if (missingCount > 0 && availableCount > 0) {
+        // Need to load additional items in the current layer
 
         let filter = { ...params.filter, ...value.filter };
+
+        let requestContext: LazyDataSourceApiRequestContext<TItem, TId> = {};
+
+        if (!flatten) {
+            if (parent != null) {
+                requestContext.parentId = parent.id;
+                requestContext.parent = parent.item;
+            } else {
+                requestContext.parentId = null;
+                requestContext.parent = null;
+            }
+        } // in flatten mode, we don't set parent and parentId even for root - as we don't want to limit results to top-level nodes only
 
         const response = await params.api({
             sorting: value.sorting,
             search: value.search,
             filter,
             range,
-        }, {
-            parentId: parent?.id,
-            parent: parent?.item,
-        });
+        }, requestContext);
 
         const from = (response.from == null) ? range.from : response.from;
 
@@ -79,14 +105,16 @@ async function loadNodeRec<TItem, TId, TFilter>(
 
         if (response.count !== null && response.count !== undefined) {
             node.count = response.count;
-        } else if (response.items.length < range.count) {
+        } else if (response.items.length < missingCount) {
             node.count = from + response.items.length;
         }
 
         isChanged = true;
     }
 
-    if (params.getChildCount) {
+    if (!flatten && params.getChildCount) {
+        // Load children
+
         const childrenPromises: Promise<any>[] = [];
         let remainingRowsCount = requiredRowsCount;
 
@@ -95,7 +123,7 @@ async function loadNodeRec<TItem, TId, TFilter>(
             let childrenCount = params.getChildCount(item.item);
             let isFoldable = !!childrenCount;
 
-            remainingRowsCount--;
+            remainingRowsCount--; // count the row itself
 
             if (isFoldable) {
                 let isFolded = params.isFolded(item.item);
@@ -109,21 +137,27 @@ async function loadNodeRec<TItem, TId, TFilter>(
                                 item.children = updatedChild;
                                 isChanged = true;
                             }
+                            childrenPromises.splice(childrenPromises.indexOf(childUpdatePromise), 1);
                         });
 
                     childrenPromises.push(childUpdatePromise);
+
+                    if (params.fetchStrategy == 'sequential') {
+                        await childUpdatePromise;
+                    }
+
                     if (item.children?.recursiveCount != null) {
+                        // We loaded all children recursively, so we know exact count
                         remainingRowsCount -= item.children.recursiveCount;
                     } else {
+                        // Children are loading, we can only safely assume there was at least childrenCount rows (which is not recursive count)
                         remainingRowsCount -= childrenCount;
                     }
                 }
             }
         }
 
-        if (childrenPromises.length > 0) {
-            await Promise.all(childrenPromises);
-        }
+        await Promise.all(childrenPromises);
     }
 
     let recursiveCount = node.count != null ? node.count : node.items.length;

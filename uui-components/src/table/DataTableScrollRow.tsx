@@ -1,13 +1,12 @@
 import * as React from 'react';
-import cx from 'classnames';
-import {ScrollManager, DataColumnProps, IHasCX} from '@epam/uui';
+import * as ReactDOM from 'react-dom';
+import ScrollBars from 'react-custom-scrollbars-2';
+import { ScrollManager, DataColumnProps, IHasCX, cx, IHasRawProps } from '@epam/uui';
 import { FlexCell } from '../layout/flexItems/FlexCell';
 import { DataTableRowContainer } from './DataTableRowContainer';
 import * as css from './DataTableScrollRow.scss';
-import * as ReactDOM from 'react-dom';
-import ScrollBars from 'react-custom-scrollbars';
 
-export interface DataTableScrollRowProps extends IHasCX {
+export interface DataTableScrollRowProps extends IHasCX, IHasRawProps<HTMLDivElement> {
     columns?: DataColumnProps<any, any>[];
     scrollManager?: ScrollManager;
     cellClass?: string;
@@ -24,10 +23,25 @@ export class DataTableScrollRow extends React.Component<DataTableScrollRowProps,
         return <FlexCell  cx={ [css.cellPlaceholder, this.props.cellClass] } { ...column } key={ column.key } />;
     }
 
+    private clientWidth?: number;
+
+    resizeObserver = new ResizeObserver(entries => {
+        for (let entry of entries) {
+            const contentRect = entry.contentRect;
+
+            if (contentRect.width !== this.clientWidth) {
+                this.forceUpdate();
+            }
+        }
+    });
+
+    componentWillUnmount() {
+        this.resizeObserver.disconnect();
+    }
+
     wrapScrollingSection(content: React.ReactNode, style: React.CSSProperties) {
         return (
             <ScrollBars
-                autoHeight
                 className={ uuiDataTableScrollRow.uuiTableScrollBar }
                 hideTracksWhenNotNeeded
                 style={ style }
@@ -35,7 +49,11 @@ export class DataTableScrollRow extends React.Component<DataTableScrollRowProps,
                     let node = ReactDOM.findDOMNode(scrollBars) as HTMLElement;
                     node = node && node.children[0] as HTMLElement;
                     node && this.props.scrollManager && this.props.scrollManager.attachScrollNode(node);
+                    node && this.resizeObserver && this.resizeObserver.observe(node);
+                    this.clientWidth = node && node.clientWidth;
                 } }
+                renderThumbHorizontal={ () => <div className='uui-thumb-horizontal' /> }
+
             >
                 { content }
             </ScrollBars>
@@ -44,7 +62,13 @@ export class DataTableScrollRow extends React.Component<DataTableScrollRowProps,
 
     render() {
         return (
-            <div className={ cx([uuiDataTableScrollRow.uuiTableScrollRowContainer, this.props.cx]) }>
+            <div
+                className={ cx([
+                    uuiDataTableScrollRow.uuiTableScrollRowContainer,
+                    this.props.cx
+                ]) }
+                {...this.props.rawProps}
+            >
                 <DataTableRowContainer
                     cx={ uuiDataTableScrollRow.uuiTableScrollRow }
                     scrollManager={ this.props.scrollManager }

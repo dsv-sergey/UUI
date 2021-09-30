@@ -7,19 +7,21 @@ exports[`LabeledInput should be rendered correctly 1`] = `
   <div
     className="uui-label-top"
   >
-    <div
-      className="container uui-input-box -clickable root size-36"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      tabIndex={-1}
-    >
-      <input
-        className="uui-input"
-        onChange={[Function]}
-        onKeyDown={[Function]}
-        type="text"
-        value=""
-      />
+    <div>
+      <div
+        className="container uui-input-box -clickable root size-36 mode-form"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        tabIndex={-1}
+      >
+        <input
+          className="uui-input"
+          onChange={[Function]}
+          onKeyDown={[Function]}
+          type="text"
+          value=""
+        />
+      </div>
     </div>
   </div>
 </div>
@@ -32,7 +34,7 @@ exports[`LabeledInput should be rendered correctly with props 1`] = `
   <div
     className="uui-label-left"
   >
-    <div
+    <label
       className="uui-label"
     >
       Test label
@@ -46,24 +48,29 @@ exports[`LabeledInput should be rendered correctly with props 1`] = `
           xlinkHref="#help-fill-16.svg"
         />
       </svg>
-    </div>
+    </label>
     <div
-      className="container uui-input-box -clickable root size-36"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      tabIndex={-1}
+      className="rightChildrenPosition"
     >
-      <input
-        className="uui-input"
-        onChange={[Function]}
-        onKeyDown={[Function]}
-        type="text"
-        value=""
-      />
+      <div
+        className="container uui-input-box -clickable root size-36 mode-form"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        tabIndex={-1}
+      >
+        <input
+          className="uui-input"
+          onChange={[Function]}
+          onKeyDown={[Function]}
+          type="text"
+          value=""
+        />
+      </div>
     </div>
   </div>
   <div
     className="uui-invalid-message"
+    role="alert"
   >
     Test invalid message
   </div>

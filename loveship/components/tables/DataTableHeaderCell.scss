@@ -19,6 +19,7 @@
 
         &:hover {
             background: $night200;
+            box-shadow: -1px 0 0 0 $night300, 1px 0 0 0 $night300;
 
             .sort-icon {
                 fill: $night600;
@@ -45,6 +46,10 @@
 
     .caption {
         font-family: $font-sans-semibold;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .checkbox {
@@ -102,12 +107,6 @@
         top: 0;
     }
 
-    .overflowed-cell {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
     .upper-case {
         text-transform: uppercase;
         font-size: 12px;
@@ -121,11 +120,54 @@
         font-size: 14px;
     }
 
+    &.resizable {
+        &:hover {
+            box-shadow: -1px 0 0 0 $night300, 1px 0 0 0 $night300;
+        }
+    }
+
     .resize-mark {
         position: absolute;
         width: 12px;
         right: 0;
         height: 100%;
         cursor: col-resize;
+    }
+
+    &.draggable {
+        cursor: pointer;
+    }
+
+    &.ghost {
+        background-color: $night200;
+    }
+
+    &.is-dragged-out {
+        background-color: $night100;
+
+        :local(.caption) {
+            color: $night500;
+        }
+
+        :local(.icon) {
+            fill: $night500;
+        }
+
+    }
+
+    &.dnd-marker-left {
+        box-shadow: inset 2px 0 0 0 $sky;
+
+        &:global(.-clickable), &:local(.resizable) {
+            box-shadow: inset 2px 0 0 0 $sky;
+        }
+    }
+
+    &.dnd-marker-right {
+        box-shadow: inset -2px 0 0 0 $sky;
+
+        &:global(.-clickable), &:local(.resizable) {
+            box-shadow: inset -2px 0 0 0 $sky;
+        }
     }
 }

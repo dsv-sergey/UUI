@@ -4,7 +4,7 @@ import * as css from './Toolbar.scss';
 import * as ReactDOM from "react-dom";
 import { Editor, findDOMNode } from 'slate-react';
 import { Popper } from 'react-popper';
-import { LayoutContext, LayoutLayer } from "@epam/uui";
+import { LayoutContext, LayoutLayer, UuiContext, UuiContexts } from "@epam/uui";
 import * as PropTypes from "prop-types";
 import * as unmergeIcon from "../icons/table-un-merge.svg";
 import * as mergeIcon from '../icons/table-merge.svg';
@@ -18,16 +18,14 @@ interface MergeCellBarProps {
 }
 
 export class MergeCellBar extends React.Component<MergeCellBarProps, any> {
-    static contextTypes = {
-        uuiLayout: PropTypes.object,
-    };
+    public static contextType = UuiContext;
+    public context: UuiContexts;
 
     tableBar: HTMLElement;
     private layer: LayoutLayer = null;
-    public context: { uuiLayout: LayoutContext };
 
 
-    constructor(props: MergeCellBarProps, context: { uuiLayout: LayoutContext }) {
+    constructor(props: MergeCellBarProps, context: UuiContexts) {
         super(props);
         this.layer = context.uuiLayout && context.uuiLayout.getLayer();
     }
@@ -76,10 +74,10 @@ export class MergeCellBar extends React.Component<MergeCellBarProps, any> {
 
         return (
             <Portal>
-                { this.props.selectedCells && this.props.selectedCells.length > 1 && <Popper referenceElement={ this.virtualReferenceElement() } placement='top' modifiers={ { offset: { offset: '0, 12px' } } }>
+                { this.props.selectedCells && this.props.selectedCells.length > 1 && <Popper referenceElement={ this.virtualReferenceElement() } placement='top' modifiers={ [{ name: 'offset', options: { offset: [0, 12] } }] }>
                     { (props) => {
                         return (
-                            <div ref={ (node) => { this.tableBar = node; props.ref(node); } } onMouseDown={ (e: any) => e.preventDefault() } className={ cx(css.container, 'merge-cells-bar') } style={ { ...props.style, zIndex: this.layer.zIndex } } >
+                            <div ref={ (node) => { this.tableBar = node; (props.ref as React.RefCallback<any>)(node); } } onMouseDown={ (e: any) => e.preventDefault() } className={ cx(css.container, 'merge-cells-bar') } style={ { ...props.style, zIndex: this.layer.zIndex } } >
                                 <ToolbarButton isActive={ false } icon={ mergeIcon } onClick={ () => { (this.props.editor as any).mergeCells(this.props, this.props.selectedCells); this.props.clearSelection(); } } />
                                 { this.isSomeMerged(this.props.selectedCells) && <ToolbarButton isActive={ false } icon={ unmergeIcon } onClick={ () => { (this.props.editor as any).unmergeCells(this.props, this.props.selectedCells); this.props.clearSelection(); } } /> }
                             </div>

@@ -43,7 +43,8 @@ exports[`ScrollBars should be rendered correctly 1`] = `
       href={null}
       onClick={[Function]}
       onKeyDown={[Function]}
-      tabIndex={0}
+      role="button"
+      tabIndex={null}
     />
   </div>
   <div
@@ -60,7 +61,7 @@ exports[`ScrollBars should be rendered correctly 1`] = `
     }
   >
     <div
-      className="uui-thumb"
+      className="uui-thumb-horizontal"
     />
   </div>
   <div
@@ -77,7 +78,7 @@ exports[`ScrollBars should be rendered correctly 1`] = `
     }
   >
     <div
-      className="uui-thumb"
+      className="uui-thumb-vertical"
     />
   </div>
 </div>

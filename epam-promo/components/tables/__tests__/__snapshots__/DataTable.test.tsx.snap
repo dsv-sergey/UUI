@@ -3,7 +3,8 @@
 exports[`DataTable should be rendered correctly 1`] = `
 Array [
   <div
-    className="container uui-table-row-container root uui-table-header-row container align-items-center"
+    className="container uui-table-row-container root uui-table-header-row container align-items-top"
+    role="row"
   >
     <div
       className="scrollableColumnsWrapper"
@@ -20,7 +21,7 @@ Array [
         className="scrollableColumnsContainer"
       >
         <div
-          className="container align-items-center"
+          className="container align-items-top"
         />
       </div>
       <div
@@ -72,7 +73,7 @@ Array [
             className="container2"
             style={
               Object {
-                "height": null,
+                "minHeight": null,
               }
             }
           >
@@ -80,7 +81,7 @@ Array [
               className="container3"
               style={
                 Object {
-                  "top": 0,
+                  "marginTop": 0,
                 }
               }
             />
@@ -100,7 +101,7 @@ Array [
           }
         >
           <div
-            className="uui-thumb"
+            className="uui-thumb-horizontal"
           />
         </div>
         <div
@@ -117,7 +118,7 @@ Array [
           }
         >
           <div
-            className="uui-thumb"
+            className="uui-thumb-vertical"
           />
         </div>
       </div>
@@ -133,7 +134,7 @@ Array [
     className="uui-table-scroll-row-container cellClass"
   >
     <div
-      className="container uui-table-row-container uui-table-scroll-row container align-items-center"
+      className="container uui-table-row-container uui-table-scroll-row container align-items-top"
     >
       <div
         className="uui-table-scroll-bar"
@@ -141,9 +142,7 @@ Array [
           Object {
             "flexGrow": 100,
             "flexShrink": 1,
-            "height": "auto",
-            "maxHeight": 200,
-            "minHeight": 0,
+            "height": "100%",
             "minWidth": 0,
             "overflow": "hidden",
             "position": "relative",
@@ -155,21 +154,19 @@ Array [
           style={
             Object {
               "WebkitOverflowScrolling": "touch",
-              "bottom": undefined,
-              "left": undefined,
+              "bottom": 0,
+              "left": 0,
               "marginBottom": 0,
               "marginRight": 0,
-              "maxHeight": 200,
-              "minHeight": 0,
               "overflow": "scroll",
-              "position": "relative",
-              "right": undefined,
-              "top": undefined,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
             }
           }
         >
           <div
-            className="container align-items-center"
+            className="container align-items-top"
           />
         </div>
         <div
@@ -186,16 +183,7 @@ Array [
           }
         >
           <div
-            style={
-              Object {
-                "backgroundColor": "rgba(0,0,0,.2)",
-                "borderRadius": "inherit",
-                "cursor": "pointer",
-                "display": "block",
-                "height": "100%",
-                "position": "relative",
-              }
-            }
+            className="uui-thumb-horizontal"
           />
         </div>
         <div

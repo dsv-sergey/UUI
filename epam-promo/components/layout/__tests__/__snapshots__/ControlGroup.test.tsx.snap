@@ -3,13 +3,15 @@
 exports[`ControlGroup should be rendered correctly 1`] = `
 <div
   className="container root"
+  role="group"
 >
   <div
     className="container uui-button-box uui-enabled button-color-blue root size-36 fill-solid"
     href={null}
     onClick={[Function]}
     onKeyDown={[Function]}
-    tabIndex={0}
+    role="button"
+    tabIndex={null}
   >
     <div
       className="uui-caption"
@@ -22,7 +24,8 @@ exports[`ControlGroup should be rendered correctly 1`] = `
     href={null}
     onClick={[Function]}
     onKeyDown={[Function]}
-    tabIndex={0}
+    role="button"
+    tabIndex={null}
   >
     <div
       className="uui-caption"

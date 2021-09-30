@@ -24,7 +24,7 @@ exports[`DataPickerBody should be rendered correctly 1`] = `
     }
   >
     <div
-      className="root font-sans text-color-gray80 line-height-24 font-size-14 v-padding-6 container"
+      className="root font-sans text-color-gray80 line-height-18 font-size-14 v-padding-9 container"
     >
       No records found
     </div>
@@ -67,13 +67,14 @@ Array [
       }
     >
       <div
-        className="container uui-input-box -clickable root size-48 search"
+        className="container uui-input-box -clickable root size-48 mode-form search"
         onBlur={[Function]}
         onFocus={[Function]}
         tabIndex={-1}
       >
         <div
           className="container uui-icon uui-enabled"
+          style={Object {}}
         >
           <svg
             className=""
@@ -87,11 +88,13 @@ Array [
           </svg>
         </div>
         <input
+          aria-invalid={false}
           className="uui-input"
+          inputMode="search"
           onChange={[Function]}
           onKeyDown={[Function]}
           placeholder="Search"
-          type="text"
+          type="search"
           value=""
         />
       </div>
@@ -143,7 +146,7 @@ Array [
             className="container2"
             style={
               Object {
-                "height": null,
+                "minHeight": null,
               }
             }
           >
@@ -151,15 +154,18 @@ Array [
               className="container3"
               style={
                 Object {
-                  "top": 0,
+                  "marginTop": 0,
                 }
               }
             >
               <div
-                className="pickerRow container align-items-center"
+                aria-posinset={3}
+                className="pickerRow container -clickable align-items-center"
+                onClick={[Function]}
+                role="option"
               >
                 <div
-                  className="flexCell cell size-36 padding-24 padding-left-24"
+                  className="flexCell cell size-36 padding-24 padding-left-24 align-widgets-top"
                   onClick={[Function]}
                   style={
                     Object {
@@ -183,10 +189,13 @@ Array [
                 </div>
               </div>
               <div
-                className="pickerRow container align-items-center"
+                aria-posinset={4}
+                className="pickerRow container -clickable align-items-center"
+                onClick={[Function]}
+                role="option"
               >
                 <div
-                  className="flexCell cell size-36 padding-24 padding-left-24"
+                  className="flexCell cell size-36 padding-24 padding-left-24 align-widgets-top"
                   onClick={[Function]}
                   style={
                     Object {
@@ -210,10 +219,13 @@ Array [
                 </div>
               </div>
               <div
-                className="pickerRow container align-items-center"
+                aria-posinset={5}
+                className="pickerRow container -clickable align-items-center"
+                onClick={[Function]}
+                role="option"
               >
                 <div
-                  className="flexCell cell size-36 padding-24 padding-left-24"
+                  className="flexCell cell size-36 padding-24 padding-left-24 align-widgets-top"
                   onClick={[Function]}
                   style={
                     Object {
@@ -237,10 +249,13 @@ Array [
                 </div>
               </div>
               <div
-                className="pickerRow container align-items-center"
+                aria-posinset={6}
+                className="pickerRow container -clickable align-items-center"
+                onClick={[Function]}
+                role="option"
               >
                 <div
-                  className="flexCell cell size-36 padding-24 padding-left-24"
+                  className="flexCell cell size-36 padding-24 padding-left-24 align-widgets-top"
                   onClick={[Function]}
                   style={
                     Object {
@@ -264,10 +279,13 @@ Array [
                 </div>
               </div>
               <div
-                className="pickerRow container align-items-center"
+                aria-posinset={7}
+                className="pickerRow container -clickable align-items-center"
+                onClick={[Function]}
+                role="option"
               >
                 <div
-                  className="flexCell cell size-36 padding-24 padding-left-24"
+                  className="flexCell cell size-36 padding-24 padding-left-24 align-widgets-top"
                   onClick={[Function]}
                   style={
                     Object {
@@ -291,10 +309,13 @@ Array [
                 </div>
               </div>
               <div
-                className="pickerRow container align-items-center"
+                aria-posinset={8}
+                className="pickerRow container -clickable align-items-center"
+                onClick={[Function]}
+                role="option"
               >
                 <div
-                  className="flexCell cell size-36 padding-24 padding-left-24"
+                  className="flexCell cell size-36 padding-24 padding-left-24 align-widgets-top"
                   onClick={[Function]}
                   style={
                     Object {
@@ -318,10 +339,13 @@ Array [
                 </div>
               </div>
               <div
-                className="pickerRow container align-items-center"
+                aria-posinset={9}
+                className="pickerRow container -clickable align-items-center"
+                onClick={[Function]}
+                role="option"
               >
                 <div
-                  className="flexCell cell size-36 padding-24 padding-left-24"
+                  className="flexCell cell size-36 padding-24 padding-left-24 align-widgets-top"
                   onClick={[Function]}
                   style={
                     Object {
@@ -345,10 +369,13 @@ Array [
                 </div>
               </div>
               <div
-                className="pickerRow container align-items-center"
+                aria-posinset={10}
+                className="pickerRow container -clickable align-items-center"
+                onClick={[Function]}
+                role="option"
               >
                 <div
-                  className="flexCell cell size-36 padding-24 padding-left-24"
+                  className="flexCell cell size-36 padding-24 padding-left-24 align-widgets-top"
                   onClick={[Function]}
                   style={
                     Object {
@@ -372,10 +399,13 @@ Array [
                 </div>
               </div>
               <div
-                className="pickerRow container align-items-center"
+                aria-posinset={11}
+                className="pickerRow container -clickable align-items-center"
+                onClick={[Function]}
+                role="option"
               >
                 <div
-                  className="flexCell cell size-36 padding-24 padding-left-24"
+                  className="flexCell cell size-36 padding-24 padding-left-24 align-widgets-top"
                   onClick={[Function]}
                   style={
                     Object {
@@ -399,10 +429,13 @@ Array [
                 </div>
               </div>
               <div
-                className="pickerRow container align-items-center"
+                aria-posinset={12}
+                className="pickerRow container -clickable align-items-center"
+                onClick={[Function]}
+                role="option"
               >
                 <div
-                  className="flexCell cell size-36 padding-24 padding-left-24"
+                  className="flexCell cell size-36 padding-24 padding-left-24 align-widgets-top"
                   onClick={[Function]}
                   style={
                     Object {
@@ -426,10 +459,13 @@ Array [
                 </div>
               </div>
               <div
-                className="pickerRow container align-items-center"
+                aria-posinset={13}
+                className="pickerRow container -clickable align-items-center"
+                onClick={[Function]}
+                role="option"
               >
                 <div
-                  className="flexCell cell size-36 padding-24 padding-left-24"
+                  className="flexCell cell size-36 padding-24 padding-left-24 align-widgets-top"
                   onClick={[Function]}
                   style={
                     Object {
@@ -469,7 +505,7 @@ Array [
           }
         >
           <div
-            className="uui-thumb"
+            className="uui-thumb-horizontal"
           />
         </div>
         <div
@@ -486,7 +522,7 @@ Array [
           }
         >
           <div
-            className="uui-thumb"
+            className="uui-thumb-vertical"
           />
         </div>
       </div>

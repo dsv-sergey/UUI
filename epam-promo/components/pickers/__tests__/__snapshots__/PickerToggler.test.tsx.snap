@@ -2,7 +2,7 @@
 
 exports[`PickerToggler should be rendered correctly 1`] = `
 <div
-  className="container uui-input-box root size-36"
+  className="container uui-input-box root size-36 mode-form"
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
@@ -13,8 +13,10 @@ exports[`PickerToggler should be rendered correctly 1`] = `
     className="body"
   >
     <input
+      aria-haspopup={true}
       className="uui-input singleInput"
       onChange={[Function]}
+      tabIndex={-1}
       type="text"
       value=""
     />
@@ -27,7 +29,7 @@ exports[`PickerToggler should be rendered correctly 1`] = `
 
 exports[`PickerToggler should be rendered correctly 2`] = `
 <div
-  className="container uui-input-box -clickable root size-48"
+  className="container uui-input-box -clickable root size-48 mode-form"
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
@@ -42,11 +44,13 @@ exports[`PickerToggler should be rendered correctly 2`] = `
       href={null}
       onClick={[Function]}
       onKeyDown={[Function]}
-      tabIndex={0}
+      role="button"
+      tabIndex={null}
     >
       <div
         className="container uui-icon uui-enabled -clickable -clickable"
         onClick={[Function]}
+        style={Object {}}
       >
         <svg
           className=""
@@ -61,8 +65,10 @@ exports[`PickerToggler should be rendered correctly 2`] = `
       </div>
     </div>
     <input
+      aria-haspopup={true}
       className="uui-input"
       onChange={[Function]}
+      tabIndex={-1}
       type="text"
       value=""
     />
@@ -73,6 +79,8 @@ exports[`PickerToggler should be rendered correctly 2`] = `
     <div
       className="container uui-icon uui-enabled -clickable uui-icon-cancel -clickable"
       onClick={[Function]}
+      style={Object {}}
+      tabIndex={-1}
     >
       <svg
         className=""

@@ -5,3 +5,5 @@ export * from './RelativePanelContext';
 export * from './GridContext';
 export * from './ModalContext';
 export * from './TabButtonContext';
+export * from './TableContext';
+export * from './VerticalTabButtonContext';

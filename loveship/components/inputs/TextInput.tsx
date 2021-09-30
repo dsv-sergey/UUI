@@ -10,7 +10,7 @@ import { systemIcons } from '../icons/icons';
 const defaultSize = '36';
 
 export interface TextInputMods extends types.EditMode, TextSettings {
-    size?: types.ControlSize | '60' | '42';
+    size?: types.ControlSize | '60';
 }
 
 export function applyTextInputMods(mods: TextInputMods) {
@@ -44,6 +44,8 @@ export class SearchInput extends React.Component<TextInputProps & TextInputMods 
                 <TextInput
                     icon={ systemIcons[this.props.size || defaultSize].search }
                     onCancel={ !!this.props.value ? (() => iEditable.onValueChange('')) : undefined }
+                    type="search"
+                    inputMode="search"
                     { ...this.props }
                     { ...iEditable }
                 />

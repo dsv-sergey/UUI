@@ -1,18 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Paginator should be rendered correctly 1`] = `
-<div
+<nav
   className="root"
+  role="navigation"
 >
   <div
     className="container uui-button-box uui-enabled -clickable button-color-gray50 root size-24 fill-white fill-white size-24"
     href={null}
     onClick={[Function]}
     onKeyDown={[Function]}
+    role="button"
     tabIndex={0}
   >
     <div
       className="container uui-icon uui-enabled"
+      style={Object {}}
     >
       <svg
         className=""
@@ -31,6 +34,7 @@ exports[`Paginator should be rendered correctly 1`] = `
     href={null}
     onClick={[Function]}
     onKeyDown={[Function]}
+    role="button"
     tabIndex={0}
   >
     <div
@@ -44,6 +48,7 @@ exports[`Paginator should be rendered correctly 1`] = `
     href={null}
     onClick={[Function]}
     onKeyDown={[Function]}
+    role="button"
     tabIndex={0}
   >
     <div
@@ -57,6 +62,7 @@ exports[`Paginator should be rendered correctly 1`] = `
     href={null}
     onClick={[Function]}
     onKeyDown={[Function]}
+    role="button"
     tabIndex={0}
   >
     <div
@@ -70,6 +76,7 @@ exports[`Paginator should be rendered correctly 1`] = `
     href={null}
     onClick={[Function]}
     onKeyDown={[Function]}
+    role="button"
     tabIndex={0}
   >
     <div
@@ -83,6 +90,7 @@ exports[`Paginator should be rendered correctly 1`] = `
     href={null}
     onClick={[Function]}
     onKeyDown={[Function]}
+    role="button"
     tabIndex={0}
   >
     <div
@@ -96,7 +104,8 @@ exports[`Paginator should be rendered correctly 1`] = `
     href={null}
     onClick={[Function]}
     onKeyDown={[Function]}
-    tabIndex={0}
+    role="button"
+    tabIndex={null}
   >
     <div
       className="uui-caption"
@@ -109,6 +118,7 @@ exports[`Paginator should be rendered correctly 1`] = `
     href={null}
     onClick={[Function]}
     onKeyDown={[Function]}
+    role="button"
     tabIndex={0}
   >
     <div
@@ -122,10 +132,12 @@ exports[`Paginator should be rendered correctly 1`] = `
     href={null}
     onClick={[Function]}
     onKeyDown={[Function]}
+    role="button"
     tabIndex={0}
   >
     <div
       className="container uui-icon uui-enabled"
+      style={Object {}}
     >
       <svg
         className=""
@@ -139,5 +151,5 @@ exports[`Paginator should be rendered correctly 1`] = `
       </svg>
     </div>
   </div>
-</div>
+</nav>
 `;

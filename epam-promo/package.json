@@ -1,6 +1,6 @@
 {
   "name": "@epam/promo",
-  "version": "3.48.0-beta.1",
+  "version": "4.2.5",
   "description": "EPAM UUI4 components set",
   "author": "EPAM",
   "license": "MIT",
@@ -8,41 +8,44 @@
   "typings": "index.d.ts",
   "scripts": {
     "build": "node ../uui-build/scripts/buildModule",
-    "publish": "npm publish ./build --access public"
+    "prepublish": "yarn build"
   },
   "dependencies": {
-    "@epam/assets": "3.48.0-beta.1",
-    "@epam/uui": "3.48.0-beta.1",
-    "@epam/uui-components": "3.48.0-beta.1",
+    "@epam/assets": "4.2.5",
+    "@epam/uui": "4.2.5",
+    "@epam/uui-components": "4.2.5",
     "@types/classnames": "2.2.6",
     "@types/lodash.isequal": "4.5.5",
     "@types/lodash.sortby": "4.7.6",
-    "@types/react": "16.9.35",
     "@types/react-custom-scrollbars": "4.0.3",
-    "@types/react-dom": "16.9.8",
     "classnames": "2.2.6",
+    "dayjs": "^1.10.6",
     "lodash.isequal": "4.5.0",
     "lodash.sortby": "4.7.0",
-    "moment": "2.19.3",
-    "react-custom-scrollbars": "4.2.1"
+    "react-custom-scrollbars-2": "^4.4.0",
+    "react-focus-lock": "2.5.2",
+    "react-popper": "2.2.5"
   },
   "devDependencies": {
-    "@types/react-test-renderer": "16.9.3",
+    "@epam/uui-docs": "4.2.5",
+    "@types/react-test-renderer": "17.0.1",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.10.0",
-    "react-test-renderer": "16.13.1"
+    "mockdate": "^3.0.5",
+    "react-test-renderer": "17.0.2"
   },
   "peerDependencies": {
     "prop-types": "*",
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0"
   },
-  "optionalDependencies": {
-    "@epam/uui-docs": "3.48.0-beta.1"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/epam/UUI"
   },
-  "gitHead": "36d14b47ae01d68fd0b7a8ad27e9eef178d2184f"
+  "gitHead": "a46206079e94ed85069ae90a59cc4ba48b9bc9eb",
+  "publishConfig": {
+    "directory": "build"
+  }
 }

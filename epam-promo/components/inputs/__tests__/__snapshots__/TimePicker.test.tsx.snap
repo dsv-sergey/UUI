@@ -2,9 +2,9 @@
 
 exports[`TimePicker should be rendered correctly 1`] = `
 <div
-  className="container uui-input-box -clickable root size-36 dateInput"
+  className="container uui-input-box -clickable root size-36 mode-form dateInput"
   onBlur={[Function]}
-  onClick={[Function]}
+  onClick={null}
   onFocus={[Function]}
   tabIndex={-1}
 >
@@ -12,12 +12,14 @@ exports[`TimePicker should be rendered correctly 1`] = `
     className="uui-input"
     onChange={[Function]}
     onKeyDown={[Function]}
+    placeholder="hh:mm A"
     type="text"
-    value="Invalid date"
+    value=""
   />
   <div
     className="container uui-icon uui-enabled -clickable uui-icon-cancel -clickable"
     onClick={[Function]}
+    style={Object {}}
   >
     <svg
       className=""
@@ -35,22 +37,25 @@ exports[`TimePicker should be rendered correctly 1`] = `
 
 exports[`TimePicker should be rendered correctly 2`] = `
 <div
-  className="container uui-input-box uui-disabled root size-36 dateInput"
+  className="container uui-input-box uui-disabled root size-36 mode-form dateInput"
   onBlur={[Function]}
-  onClick={[Function]}
+  onClick={null}
   onFocus={[Function]}
   tabIndex={-1}
 >
   <input
+    aria-disabled={true}
     className="uui-input"
     disabled={true}
     onChange={[Function]}
     onKeyDown={[Function]}
+    placeholder="HH:mm"
     type="text"
     value="01:05"
   />
   <div
     className="container uui-icon uui-disabled uui-icon-cancel -clickable hidden"
+    style={Object {}}
   >
     <svg
       className=""

@@ -1,8 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {testData} from "@epam/uui";
-import {DataPickerBody} from "../DataPickerBody";
-import {DataPickerRow} from "../DataPickerRow";
+import { renderWithContextAsync } from "@epam/test-utils";
+import { dataSource } from "./dataMocks";
+import { DataPickerBody } from "../DataPickerBody";
+import { DataPickerRow } from "../DataPickerRow";
 
 jest.mock("react-dom", () => ({
     findDOMNode: jest.fn(),
@@ -17,18 +18,21 @@ describe("DataPickerBody", () => {
     };
 
     it("should be rendered correctly", () => {
+        const view = dataSource.getView({ topIndex: 0, visibleCount: 10, focusedIndex: 1 }, () => {
+        });
+
         const tree = renderer
             .create(<DataPickerBody
                 value={ value }
                 onValueChange={ onValueChange }
-                rows={ testData.dataSourceView.getVisibleRows() }
+                rows={ view.getVisibleRows() }
                 search={ search }
             />)
             .toJSON();
         expect(tree).toMatchSnapshot();
     });
 
-    const rows = testData.dataSource.props.items.map(props => (
+    const rows = dataSource.props.items.map(props => (
         <DataPickerRow
             key={ props.id }
             renderItem={ item => <div>{ item }</div> }
@@ -38,9 +42,9 @@ describe("DataPickerBody", () => {
         />
     ));
 
-    it("should be rendered correctly with extra props", () => {
-        const tree = renderer
-            .create(<DataPickerBody
+    it("should be rendered correctly with extra props", async () => {
+        const tree = await renderWithContextAsync(
+            <DataPickerBody
                 value={ value }
                 onValueChange={ onValueChange }
                 rows={ rows }
@@ -49,12 +53,12 @@ describe("DataPickerBody", () => {
                 showSelectedRows
                 maxHeight={ 200 }
                 renderNotFound={ () => <div>Not found</div> }
-                editMode='dropdown'
+                editMode="dropdown"
                 onKeyDown={ jest.fn() }
                 scheduleUpdate={ jest.fn() }
-                searchSize='24'
-            />)
-            .toJSON();
+                searchSize="24"
+            />,
+        );
         expect(tree).toMatchSnapshot();
     });
 

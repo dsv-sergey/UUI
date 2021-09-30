@@ -1,9 +1,10 @@
-import { DataRowProps, DataColumnProps, IHasCX } from "@epam/uui";
-import { ControlSize } from "..";
+import { DataRowProps, DataColumnProps, IHasCX } from '@epam/uui';
+import { ControlSize } from '..';
 
 export interface DataTableCellProps<TItem, TId> extends IHasCX {
     rowProps: DataRowProps<TItem, TId>;
     column: DataColumnProps<TItem, TId>;
+    role?: React.HTMLAttributes<HTMLElement>['role'];
 }
 
 interface BaseRowMods {
@@ -26,6 +27,7 @@ export interface DataTableCellMods {
     padding?: '0' | '12' | '24';
     isFirstColumn?: boolean;
     isLastColumn?: boolean;
+    alignActions?: 'top' | 'center';
 }
 
 export interface DataTableHeaderCellMods extends BaseRowMods {

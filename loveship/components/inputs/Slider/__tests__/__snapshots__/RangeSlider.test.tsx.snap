@@ -59,6 +59,9 @@ exports[`RangeSlider should be rendered correctly 1`] = `
   </div>
   <div
     className="uui-slider-handle root color-sky"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
     onMouseDown={[Function]}
     onMouseUp={[Function]}
     style={
@@ -66,9 +69,13 @@ exports[`RangeSlider should be rendered correctly 1`] = `
         "transform": "translateX(0px)",
       }
     }
+    tabIndex={0}
   />
   <div
     className="uui-slider-handle root color-sky"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
     onMouseDown={[Function]}
     onMouseUp={[Function]}
     style={
@@ -76,6 +83,7 @@ exports[`RangeSlider should be rendered correctly 1`] = `
         "transform": "translateX(0px)",
       }
     }
+    tabIndex={0}
   />
 </div>
 `;
@@ -139,6 +147,9 @@ exports[`RangeSlider should be rendered correctly with extra props 1`] = `
   </div>
   <div
     className="uui-slider-handle root color-sun"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
     onMouseDown={[Function]}
     onMouseUp={[Function]}
     style={
@@ -146,9 +157,13 @@ exports[`RangeSlider should be rendered correctly with extra props 1`] = `
         "transform": "translateX(0px)",
       }
     }
+    tabIndex={0}
   />
   <div
     className="uui-slider-handle root color-sun"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
     onMouseDown={[Function]}
     onMouseUp={[Function]}
     style={
@@ -156,6 +171,7 @@ exports[`RangeSlider should be rendered correctly with extra props 1`] = `
         "transform": "translateX(0px)",
       }
     }
+    tabIndex={0}
   />
 </div>
 `;

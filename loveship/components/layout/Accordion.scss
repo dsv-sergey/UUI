@@ -1,4 +1,5 @@
 @use '../../assets/styles/scss/index'  as *;
+@use '../../assets/styles/scss/layout-mixins' as *;
 
 .root {
     :global(.uui-accordion-toggler) {
@@ -87,10 +88,10 @@
             fill: $night600;
             line-height: 18px;
             font-size: 14px;
+            padding: 8px 12px 8px;
 
             :global(.uui-accordion-toggle-container) {
                 min-height: 24px;
-                padding: 3px 12px 8px;
 
                 :global(.uui-accordion-title) {
                     color: $night700;
@@ -118,6 +119,30 @@
                     color: #9FA1AE;
                 }
             }
+        }
+    }
+
+    &.padding-0 {
+        :global(.uui-accordion-toggler), :global(.uui-accordion-body) {
+            @include padding(0);
+        }
+    }
+
+    &.padding-6 {
+        :global(.uui-accordion-toggler), :global(.uui-accordion-body) {
+            @include padding(6);
+        }
+    }
+
+    &.padding-12 {
+        :global(.uui-accordion-toggler), :global(.uui-accordion-body) {
+            @include padding(12);
+        }
+    }
+
+    &.padding-18 {
+        :global(.uui-accordion-toggler), :global(.uui-accordion-body) {
+            @include padding(18);
         }
     }
 }

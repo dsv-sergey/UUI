@@ -8,7 +8,7 @@ export interface RowMods extends types.RowSizeMod {
     topShadow?: boolean;
     borderBottom?: boolean | 'night50' | 'night400' | 'night700' | 'night300';
     padding?: '6' | '12' | '18' | '24';
-    vPadding?: '12' | '18' | '24';
+    vPadding?: '12' | '18' | '24' | '36' | '48';
     spacing?: '6' | '12' | '18' | null;
     type?: 'form' | 'panel';
     margin?: '12' | '24';
@@ -41,7 +41,7 @@ export const FlexRow = withMods<FlexRowProps, RowMods & FlexRowProps>(uuiFlexRow
 
     return [
         css.root,
-        css['size-' + props.size],
+        props.size !== null && css['size-' + (props.size || '36')],
         css['background-' + props.background],
         props.padding && css['padding-' + props.padding],
         props.vPadding && css['vPadding-' + props.vPadding],

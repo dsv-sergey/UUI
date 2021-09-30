@@ -3,12 +3,15 @@
 exports[`should be rendered correctly 1`] = `
 <div
   className="container root"
+  role="tablist"
 >
   <div
+    aria-current={true}
     className="container uui-button-box uui-enabled -clickable button-color-blue root size-36 fill-solid"
     href={null}
     onClick={[Function]}
     onKeyDown={[Function]}
+    role="tab"
     tabIndex={0}
   >
     <div
@@ -18,10 +21,12 @@ exports[`should be rendered correctly 1`] = `
     </div>
   </div>
   <div
+    aria-current={false}
     className="container uui-button-box uui-enabled -clickable button-color-blue root size-36 fill-white"
     href={null}
     onClick={[Function]}
     onKeyDown={[Function]}
+    role="tab"
     tabIndex={0}
   >
     <div

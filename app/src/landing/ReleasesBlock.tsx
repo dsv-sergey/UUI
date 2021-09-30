@@ -4,6 +4,7 @@ import { FlexRow, FlexSpacer, LinkButton, Text } from '@epam/promo';
 import { ReleasesCell } from './ReleasesCell';
 import { svc } from '../services';
 import * as css from './ReleasesBlock.scss';
+import { analyticsEvents } from "../analyticsEvents";
 
 interface LandingReleasesState {
     markdown: any | null;
@@ -11,9 +12,12 @@ interface LandingReleasesState {
 }
 
 export class ReleasesBlock extends React.Component<{}, LandingReleasesState> {
-    constructor(props: Readonly<{containerRef: any}>) {
-        super(props);
+    state: LandingReleasesState = {
+        markdown: null,
+        isLoaded: false,
+    };
 
+    componentDidMount() {
         svc.api.getChangelog()
             .then(response => response)
             .then(data => {
@@ -22,11 +26,6 @@ export class ReleasesBlock extends React.Component<{}, LandingReleasesState> {
                     isLoaded: true,
                 });
             });
-
-        this.state = {
-            markdown: null,
-            isLoaded: false,
-        };
     }
 
     render() {
@@ -47,7 +46,12 @@ export class ReleasesBlock extends React.Component<{}, LandingReleasesState> {
                                             { containerWidth > 768 &&
                                                 <>
                                                     <FlexSpacer />
-                                                    <LinkButton size='48' caption='Load older versions' link={ { pathname: '/documents', query: { id: 'releaseNotes' } } } />
+                                                    <LinkButton
+                                                        size='48'
+                                                        caption='Load older versions'
+                                                        link={ { pathname: '/documents', query: { id: 'releaseNotes' } } }
+                                                        clickAnalyticsEvent={ analyticsEvents.welcome.releaseNotes() }
+                                                    />
                                                 </>
                                             }
 

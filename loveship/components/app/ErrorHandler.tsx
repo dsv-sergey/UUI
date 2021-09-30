@@ -1,5 +1,5 @@
 import React from 'react';
-import { UuiContexts, uuiContextTypes, ApiRecoveryReason, INotification, UuiError, UuiErrorInfo, IHasCX } from '@epam/uui';
+import { UuiContexts, ApiRecoveryReason, INotification, UuiError, UuiErrorInfo, IHasCX, UuiContext } from '@epam/uui';
 import { ModalBlocker, ModalWindow, ModalHeader, SnackbarCard } from './../overlays';
 import { FlexRow, FlexCell } from './../layout';
 import { RichTextView, Text } from './../typography';
@@ -94,9 +94,16 @@ export const recoveryWordings: Record<ApiRecoveryReason, { title: string, text: 
 const defaultNotificationErrorMessage = `Sorry, there's a temporary problem. Please try again in a few moments`;
 
 export class ErrorHandler extends React.Component<ErrorPageProps> {
-    static contextTypes = uuiContextTypes;
+    static contextType = UuiContext;
     public context: UuiContexts;
     public state: { jsError: Error, jsErrorInfo: React.ErrorInfo } = { jsError: null, jsErrorInfo: null };
+
+    constructor(props: ErrorPageProps, context: UuiContexts) {
+        super(props, context);
+        context.uuiApi.subscribe(this.onApiChange);
+        context.uuiErrors.onError(() => this.forceUpdate());
+        context.uuiRouter.listen(this.onRouteChange);
+    }
 
     defaultErrorPageProps = getDefaultErrorPageProps(this.props?.theme);
 
@@ -116,12 +123,6 @@ export class ErrorHandler extends React.Component<ErrorPageProps> {
         this.forceUpdate();
     }
 
-    constructor(props: ErrorPageProps, context: UuiContexts) {
-        super(props, context);
-        context.uuiApi.subscribe(this.onApiChange);
-        context.uuiErrors.onError(() => this.forceUpdate());
-    }
-
     componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
         this.context.uuiErrors.reportError(error);
     }
@@ -137,6 +138,20 @@ export class ErrorHandler extends React.Component<ErrorPageProps> {
         }
     }
 
+    onRouteChange = () => {
+        let hasError = false;
+        if (this.context.uuiApi.getActiveCalls().some(c => c.status === 'error')) {
+            this.context.uuiApi.reset();
+            hasError = true;
+        }
+
+        if (this.context.uuiErrors.currentError !== null) {
+            this.context.uuiErrors.recover();
+            hasError = true;
+        }
+
+        hasError && this.forceUpdate();
+    }
 
     renderErrorPage(errorCode: number, customInfo?: UuiErrorInfo) {
         let getInfo = (this.props.errorPageConfig && this.props.errorPageConfig.getInfo) || this.getDefaultInfo;

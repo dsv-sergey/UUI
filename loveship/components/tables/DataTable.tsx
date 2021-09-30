@@ -1,13 +1,28 @@
 import React from 'react';
-import {applyColumnsConfig, ColumnsConfig, cx, DataRowProps, DataSourceState, Lens, ScrollManager,
-    getColumnsConfig, UuiContexts, uuiContextTypes, IEditable, DataTableState, DataSourceListProps, DataColumnProps} from '@epam/uui';
+import {
+    applyColumnsConfig,
+    ColumnsConfig,
+    cx,
+    DataRowProps,
+    DataSourceState,
+    Lens,
+    ScrollManager,
+    getColumnsConfig,
+    UuiContexts,
+    IEditable,
+    DataTableState,
+    DataSourceListProps,
+    DataColumnProps,
+    DataTableColumnsConfigOptions,
+    UuiContext,
+} from '@epam/uui';
 import { ColumnsConfigurationModal, DataTableHeaderRow, DataTableRow, DataTableScrollRow, DataTableMods } from './';
 import { FlexRow, IconButton, VirtualList, Text } from '../';
 import * as css from './DataTable.scss';
 import * as searchIcon from '../icons/search-24.svg';
-import * as CustomScrollBars from "react-custom-scrollbars";
+import * as CustomScrollBars from "react-custom-scrollbars-2";
 
-export interface DataTableProps<TItem, TId> extends IEditable<DataTableState>, DataSourceListProps {
+export interface DataTableProps<TItem, TId> extends IEditable<DataTableState>, DataSourceListProps, DataTableColumnsConfigOptions {
     getRows(): DataRowProps<TItem, TId>[];
     columns: DataColumnProps<TItem, TId>[];
     renderRow?(props: DataRowProps<TItem, TId>): React.ReactNode;
@@ -18,7 +33,7 @@ export interface DataTableProps<TItem, TId> extends IEditable<DataTableState>, D
 
 export class DataTable<TItem, TId = any> extends React.Component<DataTableProps<TItem, TId> & DataTableMods> {
 
-    static contextTypes = uuiContextTypes;
+    static contextType = UuiContext;
     context: UuiContexts;
 
     scrollManager = new ScrollManager();
@@ -34,6 +49,10 @@ export class DataTable<TItem, TId = any> extends React.Component<DataTableProps<
 
     getColumnsConfig() {
         return getColumnsConfig(this.props.columns, this.props.value.columnsConfig);
+    }
+
+    getDefaultColumnsConfig() {
+        return getColumnsConfig(this.props.columns, {});
     }
 
     getRows() {
@@ -60,8 +79,12 @@ export class DataTable<TItem, TId = any> extends React.Component<DataTableProps<
                     { ...modalProps }
                     columns={ this.props.columns }
                     columnsConfig={ this.getColumnsConfig() }
+                    defaultConfig={ this.getDefaultColumnsConfig() }
+
                 />
-            )).then(this.setColumnsConfig);
+            ))
+            .then(this.setColumnsConfig)
+            .catch(() => null);
     }
 
     renderNoResultsBlock = () => {
@@ -87,9 +110,15 @@ export class DataTable<TItem, TId = any> extends React.Component<DataTableProps<
                     selectAll={ this.props.selectAll }
                     size={ this.props.size }
                     textCase={ this.props.headerTextCase }
+                    allowColumnsReordering={ this.props.allowColumnsReordering }
+                    allowColumnsResizing={ this.props.allowColumnsResizing }
                     { ...this.lens.toProps() }
                 />
-                <FlexRow key='body' topShadow background='white' cx={ css.body }>
+                <FlexRow
+                    key='body'
+                    topShadow
+                    background='white'
+                    cx={ css.body }>
                     { this.props.exactRowsCount !== 0 ? (
                         <VirtualList
                             { ...this.lens.toProps() }

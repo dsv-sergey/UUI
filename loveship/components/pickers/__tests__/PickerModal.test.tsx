@@ -1,27 +1,27 @@
 import React from "react";
-import renderer from "react-test-renderer";
-import {testData} from "@epam/uui";
-import {PickerModal} from "../PickerModal";
+import { renderWithContextAsync } from "@epam/test-utils";
+import { dataSource } from "./dataMocks";
+import { PickerModal } from "../PickerModal";
 
 jest.mock("react-dom", () => ({
     findDOMNode: jest.fn(),
 }));
 
 describe("PickerModal", () => {
-    it("should be rendered correctly", () => {
-        const tree = renderer
-            .create(<PickerModal
-                key='test'
-                valueType='id'
-                dataSource={ testData.dataSource }
+    it("should be rendered correctly", async () => {
+        const tree = await renderWithContextAsync(
+            <PickerModal
+                key="test"
+                valueType="id"
+                dataSource={ dataSource }
                 success={ jest.fn() }
                 abort={ jest.fn() }
                 zIndex={ 1 }
-                selectionMode='single'
+                selectionMode="single"
                 initialValue={ null }
                 isActive
-            />)
-            .toJSON();
+            />,
+        );
         expect(tree).toMatchSnapshot();
     });
 });

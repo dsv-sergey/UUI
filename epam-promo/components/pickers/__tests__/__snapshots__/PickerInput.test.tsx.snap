@@ -2,7 +2,7 @@
 
 exports[`PickerInput should be rendered correctly 1`] = `
 <div
-  className="container uui-input-box -clickable root size-36"
+  className="container uui-input-box -clickable root size-36 mode-form"
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
@@ -13,9 +13,11 @@ exports[`PickerInput should be rendered correctly 1`] = `
     className="body"
   >
     <input
+      aria-haspopup={true}
       className="uui-input singleInput"
       onChange={[Function]}
       placeholder="Please select "
+      tabIndex={-1}
       type="text"
       value=""
     />
@@ -25,6 +27,7 @@ exports[`PickerInput should be rendered correctly 1`] = `
   >
     <div
       className="container uui-icon uui-enabled"
+      style={Object {}}
     >
       <svg
         className=""
@@ -43,7 +46,7 @@ exports[`PickerInput should be rendered correctly 1`] = `
 
 exports[`PickerInput should be rendered correctly 2`] = `
 <div
-  className="container uui-input-box -clickable root size-48"
+  className="container uui-input-box -clickable root size-48 mode-form"
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
@@ -58,12 +61,14 @@ exports[`PickerInput should be rendered correctly 2`] = `
       href={null}
       onClick={[Function]}
       onKeyDown={[Function]}
-      tabIndex={0}
+      role="button"
+      tabIndex={null}
     >
       
       <div
         className="container uui-icon uui-enabled -clickable -clickable"
         onClick={[Function]}
+        style={Object {}}
       >
         <svg
           className=""
@@ -82,7 +87,8 @@ exports[`PickerInput should be rendered correctly 2`] = `
       href={null}
       onClick={[Function]}
       onKeyDown={[Function]}
-      tabIndex={0}
+      role="button"
+      tabIndex={null}
     >
       <div
         className="uui-caption"
@@ -92,6 +98,7 @@ exports[`PickerInput should be rendered correctly 2`] = `
       <div
         className="container uui-icon uui-enabled -clickable -clickable"
         onClick={[Function]}
+        style={Object {}}
       >
         <svg
           className=""
@@ -112,6 +119,8 @@ exports[`PickerInput should be rendered correctly 2`] = `
     <div
       className="container uui-icon uui-enabled -clickable uui-icon-cancel -clickable"
       onClick={[Function]}
+      style={Object {}}
+      tabIndex={-1}
     >
       <svg
         className=""
@@ -126,6 +135,7 @@ exports[`PickerInput should be rendered correctly 2`] = `
     </div>
     <div
       className="container uui-icon uui-enabled"
+      style={Object {}}
     >
       <svg
         className=""

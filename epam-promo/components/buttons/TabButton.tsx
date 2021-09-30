@@ -16,12 +16,13 @@ function applyTabButtonMods(mods: TabButtonMods & ButtonProps) {
         css['size-' + (mods.size || '48')],
         mods.withNotify && css.uuiNotification,
         styles.tabButtonColor,
-        ...getIconClass(mods)
+        ...getIconClass(mods),
     ];
 }
 
-export const TabButton = withMods<ButtonProps, TabButtonMods>(Button, applyTabButtonMods, () => ({
+export const TabButton = withMods<ButtonProps, TabButtonMods>(Button, applyTabButtonMods, props => ({
     dropdownIcon: systemIcons['36'].foldingArrow,
     clearIcon: systemIcons['36'].clear,
     countPosition: 'right',
+    rawProps: { role: 'tab', ...props.rawProps },
 }));
