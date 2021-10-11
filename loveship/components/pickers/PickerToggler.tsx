@@ -54,17 +54,13 @@ export class PickerToggler extends React.Component<PickerTogglerProps<any, any> 
             key={ row.rowKey }
             caption={ caption }
             color="night300"
+            tabIndex={ -1 }
             size={ this.props.size ? tagSize : '30' }
             onClear={ e => {
                 row.onCheck && row.onCheck(row);
                 e.stopPropagation();
             } }
         />;
-    }
-
-    handleClear = () => {
-        this.props.onClear();
-        this.props.onValueChange('');
     }
 
     render() {
@@ -77,7 +73,6 @@ export class PickerToggler extends React.Component<PickerTogglerProps<any, any> 
                 getName={ (row) => this.props.getName ? this.props.getName(row.value) : row.value }
                 cancelIcon={ systemIcons[this.props.size || defaultSize].clear }
                 dropdownIcon={ systemIcons[this.props.size || defaultSize].foldingArrow }
-                onClear={ this.handleClear }
             />
         );
     }

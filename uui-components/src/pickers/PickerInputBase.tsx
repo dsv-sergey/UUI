@@ -110,7 +110,7 @@ export abstract class PickerInputBase<TItem, TId, TProps> extends PickerBase<TIt
     }
 
     onSelect = (row: DataRowProps<TItem, TId>) => {
-        this.setState({ opened: false });
+        this.toggleDropdownOpening(false);
         this.handleDataSourceValueChange({ ...this.state.dataSourceState, search: '', selectedId: row.id });
         this.focusToggler();
     }
@@ -174,6 +174,7 @@ export abstract class PickerInputBase<TItem, TId, TProps> extends PickerBase<TIt
             getName: (i: any) => this.getName(i),
             entityName: this.getEntityName(selectedRows.length),
             pickerMode: this.isSingleSelect() ? 'single' : 'multi',
+            searchPosition: this.props.searchPosition,
             onKeyDown: (e: React.KeyboardEvent<HTMLElement>) => this.handlePickerInputKeyboard(rows, e),
             disableSearch: searchPosition !== 'input',
             disableClear: disableClear,

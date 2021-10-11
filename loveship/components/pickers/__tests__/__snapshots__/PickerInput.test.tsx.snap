@@ -15,6 +15,7 @@ exports[`PickerInput should be rendered correctly 1`] = `
     <input
       aria-haspopup={true}
       className="uui-input singleInput"
+      onBlur={[Function]}
       onChange={[Function]}
       placeholder="Please select "
       tabIndex={-1}
@@ -56,13 +57,12 @@ exports[`PickerInput should be rendered correctly with extra props 1`] = `
   <div
     className="body multiline"
   >
-    <div
+    <button
       className="container uui-button-box uui-enabled root font-sans-semibold size-18 fill-solid color-night300 root"
       href={null}
       onClick={[Function]}
-      onKeyDown={[Function]}
       role="button"
-      tabIndex={null}
+      tabIndex={-1}
     >
       <div
         className="uui-caption"
@@ -85,14 +85,13 @@ exports[`PickerInput should be rendered correctly with extra props 1`] = `
           />
         </svg>
       </div>
-    </div>
-    <div
+    </button>
+    <button
       className="container uui-button-box uui-enabled root font-sans-semibold size-18 fill-solid color-night300 root"
       href={null}
       onClick={[Function]}
-      onKeyDown={[Function]}
       role="button"
-      tabIndex={null}
+      tabIndex={-1}
     >
       <div
         className="uui-caption"
@@ -115,7 +114,7 @@ exports[`PickerInput should be rendered correctly with extra props 1`] = `
           />
         </svg>
       </div>
-    </div>
+    </button>
   </div>
   <div
     className="actions"
